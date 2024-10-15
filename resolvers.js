@@ -18,6 +18,22 @@ const resolvers = {
             });
             await newStudent.save();
             return newStudent;
+        },
+        update: async (parent, args) => {
+            const { id } = args; // ES6 Object Destructuring
+            /*  
+                if else condition
+            */
+            const result = await Student.findByIdAndUpdate(id, args);
+            return result
+        },
+        delete: async (parent, args) => {
+            const { id } = args; // ES6 Object Destructuring
+            const deleteStudent = await Student.findByIdAndDelete(id);
+            if (!deleteStudent) {
+                throw new Error(`Student with ${id} not found`);
+            }
+            return deleteStudent;
         }
     }
 }
